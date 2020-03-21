@@ -7,6 +7,7 @@ services:
       - ".:/var/www/html"
     depends_on:
       - db
+      - db_rh
   web:
     image: ddtq/saude_web:0.1
     ports:
@@ -16,3 +17,9 @@ services:
   db:
     image: postgres:12.2
     env_file: .env
+  db_rh:
+    image: ddtq/saude_db_rh:0.1
+    environment: 
+      - "POSTGRES_USER=rh"
+      - "POSTGRES_PASSWORD=Secret123"
+      - "POSTGRES_DB=rh"

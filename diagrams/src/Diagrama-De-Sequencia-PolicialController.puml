@@ -1,6 +1,6 @@
 @startuml
 
-title "Diagrama de Sequencia /policial"
+title "Diagrama de Sequencia /saude/verify_policial"
 
 actor webapp
 control "Policial Controller" as PMC
@@ -10,7 +10,7 @@ entity PolicialMeta4 as PM4
 entity Policial as PM
 database Widgets
 
-webapp -> PMC: GET /policial
+webapp -> PMC: POST /saude/verify_policial
 activate PMC
 PMC -> PMH: findPM(String rg, Datetime data_nascimento)
 activate PMH

@@ -21,7 +21,10 @@ migration:
 cp_env:
 	cp .env.exemplo .env
 
-install-dev: cp_env build-images up composer migration
+db_rh:
+	docker exec -it saude_db_rh_1 bash -c "/bin/sh /docker-entrypoint-initdb.d/db_rh.sh"
+
+install-dev: cp_env build-images up composer migration db_rh
 
 install-prod: cp_env build-images up-prod composer migration
 

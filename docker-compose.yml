@@ -26,3 +26,4 @@ services:
     environment: 
       - "POSTGRES_USER=saude"
       - "POSTGRES_PASSWORD=Secret123"
+      - "POSTGRES_DB=rhparana"

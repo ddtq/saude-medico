@@ -16,6 +16,8 @@ class RespostasController extends AbstractController
     {
         $error = array();
 
+        $data = array();
+
         if ($request->isMethod('GET')) {
             $error[] = 'POST é o único método permitido.';
         }

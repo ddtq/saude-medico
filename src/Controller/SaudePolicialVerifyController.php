@@ -13,7 +13,7 @@ class SaudePolicialVerifyController extends AbstractController
     /**
      * @Route("/saude/policial_verify", name="saude_policial_verify", methods={"POST"})
      */
-    public function index(Request $request)
+    public function policialVerify(Request $request)
     {
         $error = array();
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
@@ -41,7 +41,17 @@ class SaudePolicialVerifyController extends AbstractController
         }
 
         return $this->json(['result' => $response, 'errors'=>$error]);
-        //return $this->json(['rg' => $rg, 'data_nascimento'=>$dataNascimento->format('Y-m-d')]);
-        //return $this->json(['rg' => $data]);
+
+    }
+
+    /**
+     * @Route("/saude/policial_verify", name="saude_policial_verify", methods={"GET"})
+     */
+    public function policialVerifyGet(Request $request)
+    {
+        $error = array('POST é o único método permitido');
+        
+        return $this->json(['result' => false, 'errors'=>$error]);
+
     }
 }

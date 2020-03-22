@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  app:
+    image: ddtq/saude_app:0.2
+    volumes:
+      - ".:/var/www/html"
+    depends_on:
+      - db
+      - db_rh
+  web:
+    image: ddtq/saude_web:0.1
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    links:
+      - db
+      - db_rh
+  db:
+    image: postgres:12.2
+    env_file: .env
+  db_rh:
+    image: ddtq/saude_db_rh:0.1
+    restart: always
+    environment: 
+      - "POSTGRES_USER=saude"
+      - "POSTGRES_PASSWORD=Secret123"
+      - "POSTGRES_DB=rhparana"

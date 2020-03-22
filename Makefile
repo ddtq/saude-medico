@@ -1,5 +1,8 @@
 .PHONY: up composer down appbash composer install-dev build-images appbash
 
+up-prod:
+	docker-compose -f prod.docker-compose.yml up -d
+
 up:
 	docker-compose up -d
 
@@ -19,6 +22,8 @@ cp_env:
 	cp .env.exemplo .env
 
 install-dev: cp_env build-images up composer migration
+
+install-prod: cp_env build-images up-prod composer migration
 
 build-images:
 	pwd=$(`pwd`) && cd .docker/dev/app && docker image build --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) -t ddtq/saude_app:0.2 . && cd $(pwd)

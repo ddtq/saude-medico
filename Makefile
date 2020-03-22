@@ -18,7 +18,7 @@ migration:
 cp_env:
 	cp .env.exemplo .env
 
-install-dev: build-images up composer migration
+install-dev: cp_env build-images up composer migration
 
 build-images:
 	pwd=$(`pwd`) && cd .docker/dev/app && docker image build --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) -t ddtq/saude_app:0.2 . && cd $(pwd)

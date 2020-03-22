@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname postgres <<-EOSQL
+
+CREATE DATABASE rhparana OWNER saude;
+
+\connect rhparana;
 
 CREATE TABLE public.pm_cm
 (
@@ -36,8 +40,6 @@ CREATE TABLE public.pm_cm
    CPF varchar(11),
    id int PRIMARY KEY NOT NULL
 )
-;
-CREATE UNIQUE INDEX pm_cm_pkey ON public.pm_cm(id)
 ;
 
 CREATE TABLE public.INATIVOS
@@ -101,8 +103,6 @@ CREATE INDEX opmPMPR_IX_MUNICIPIO ON public.opmPMPR(MUNICIPIO)
 ;
 CREATE INDEX opmPMPR_IX_CODIGO ON public.opmPMPR(CODIGO)
 ;
-CREATE UNIQUE INDEX opmPMPR_pkey ON public.opmPMPR(META4)
-;
 
 
 INSERT INTO pm_cm (
@@ -145,7 +145,7 @@ INSERT INTO pm_cm (
    'PM',
    '1980-04-21 00:00:00',
    1,
-   Masculino,
+   'Masculino',
    '1999-02-01 00:00:00',
    'nome@dominio.com',
    null,

@@ -27,7 +27,7 @@ class CaptchaController extends AbstractController
 
         // Salva o valor do captcha na sessão
         $session = new Session();
-        $session->set('captcha', $builder->getPhrase());
+        $session->getFlashBag()->add('captcha', $builder->getPhrase());
 
         // Cria o objeto Response com o conteúdo do arquivo Jpeg
         $response = new Response($builder->get());

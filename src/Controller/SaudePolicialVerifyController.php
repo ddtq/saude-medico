@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Policial;
 use App\Helper\PolicialHelper;
 
@@ -15,6 +16,8 @@ class SaudePolicialVerifyController extends AbstractController
      */
     public function policialVerify(Request $request)
     {
+        $data = array();
+
         $error = array();
 
         if ($request->isMethod('GET')) {
@@ -26,6 +29,22 @@ class SaudePolicialVerifyController extends AbstractController
             $request->request->replace(is_array($data) ? $data : array());
         } else {
             $error[] = 'Cabeçalho deve ter "Content-Type=application/json"';
+        }
+
+        $captcha = false;
+
+        // Salva o valor do captcha na sessão
+        $session = new Session();
+
+        $sessionFlashBag = $session->getFlashBag()->get('captcha');
+
+        $captchaPhrase = isset($sessionFlashBag[0]) ? $sessionFlashBag[0] : null; 
+
+        if (!isset($data['captcha']) || strtoupper(trim($data['captcha'])) !== strtoupper($captchaPhrase)) {
+            $error[] = 'INVALID CAPTCHA';
+            return $this->json(['result' => false, 'captcha'=>false, 'errors'=>$error]);
+        } else {
+            $captcha = true;
         }
 
         if (!isset($data['rg'])) {
@@ -41,7 +60,7 @@ class SaudePolicialVerifyController extends AbstractController
         }
         
         if (count($error) > 0) {
-            return $this->json(['result' => false, 'errors'=>$error]);
+            return $this->json(['result' => false, 'captcha' => $captcha, 'errors'=>$error]);
         }
 
         
@@ -56,7 +75,7 @@ class SaudePolicialVerifyController extends AbstractController
             $response = false;
         }
 
-        return $this->json(['result' => $response, 'errors'=>$error]);
+        return $this->json(['result' => $response, 'captcha' => $captcha, 'errors'=>$error]);
 
     }
 

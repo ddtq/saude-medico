@@ -12,6 +12,9 @@ down:
 appbash:
 	docker exec -e http_proxy=$(http_proxy) -e https_proxy=$(http_proxy) -it saude_app_1 bash
 
+dbrhbash:
+	docker exec -e http_proxy=$(http_proxy) -e https_proxy=$(http_proxy) -it saude_db_rh_1 bash -c "psql -U saude -d rhparana"
+
 composer:
 	docker exec -e http_proxy=$(http_proxy) -e https_proxy=$(http_proxy) -it saude_app_1 /bin/bash -c "curl -sS https://getcomposer.org/installer | php && php composer.phar install"
 

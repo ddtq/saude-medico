@@ -40,9 +40,18 @@ class SaudePolicialVerifyController extends AbstractController
 
         $captchaPhrase = isset($sessionFlashBag[0]) ? $sessionFlashBag[0] : null; 
 
-        if (!isset($data['captcha']) || strtoupper(trim($data['captcha'])) !== strtoupper($captchaPhrase)) {
+        if (
+                "prod" === $this->getParameter('kernel.environment') && 
+                (
+                    !isset($data['captcha']) || 
+                    strtoupper(trim($data['captcha'])) !== strtoupper($captchaPhrase)
+                )
+         ) {
+
             $error[] = 'INVALID CAPTCHA';
+
             return $this->json(['result' => false, 'captcha'=>false, 'errors'=>$error]);
+
         } else {
             $captcha = true;
         }

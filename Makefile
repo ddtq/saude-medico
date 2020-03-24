@@ -22,7 +22,7 @@ migration:
 	docker exec -e http_proxy=$(http_proxy) -e https_proxy=$(http_proxy) -it saude_app_1 /bin/bash -c "./bin/console doctrine:migrations:migrate -n"
 
 cp_env:
-	cp .env.exemplo .env
+	cp .env.dist .env
 
 db_rh:
 	docker exec -it saude_db_rh_1 bash -c "/bin/sh /docker-entrypoint-initdb.d/db_rh.sh"

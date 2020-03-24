@@ -82,3 +82,12 @@ composer.phar
 # End of https://www.gitignore.io/api/symfony,composer,visualstudiocode
 
 /diagrams/out/*
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###

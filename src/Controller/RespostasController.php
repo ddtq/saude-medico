@@ -31,7 +31,8 @@ class RespostasController extends AbstractController
 
 
         return $this->json([
-            'result' => 'Recebido',
+            'result' => 'Caso suspeito',
+            'mensagem' => '<p>Baseado em sua resposta, é provável que essa situação .... . </p><p>Procure um posto de saúde. Em breve um médico da Coroporação poderá entrar em contato para repassar informações. Fique atento ao telefone informado no formulário.</p>',
             'erros' => $error,
             'dados_recebidos' => $data
         ]);

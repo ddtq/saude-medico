@@ -24,13 +24,13 @@ class TipoRh
     private $decricao;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="tipo_rh_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="tipoRh")
      */
-    private $buscaPorSexo;
+    private $policiais;
 
     public function __construct()
     {
-        $this->buscaPorSexo = new ArrayCollection();
+        $this->policiais = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,31 +53,32 @@ class TipoRh
     /**
      * @return Collection|Policial[]
      */
-    public function getBuscaPorSexo(): Collection
+    public function getPoliciais(): Collection
     {
-        return $this->buscaPorSexo;
+        return $this->policiais;
     }
 
-    public function addBuscaPorSexo(Policial $buscaPorSexo): self
+    public function addPolicial(Policial $policial): self
     {
-        if (!$this->buscaPorSexo->contains($buscaPorSexo)) {
-            $this->buscaPorSexo[] = $buscaPorSexo;
-            $buscaPorSexo->setTipoRhId($this);
+        if (!$this->policiais->contains($policial)) {
+            $this->policiais[] = $policial;
+            $policial->setTipoRh($this);
         }
 
         return $this;
     }
 
-    public function removeBuscaPorSexo(Policial $buscaPorSexo): self
+    public function removePolicial(Policial $policial): self
     {
-        if ($this->buscaPorSexo->contains($buscaPorSexo)) {
-            $this->buscaPorSexo->removeElement($buscaPorSexo);
+        if ($this->policiais->contains($policial)) {
+            $this->policiais->removeElement($policial);
             // set the owning side to null (unless already changed)
-            if ($buscaPorSexo->getTipoRhId() === $this) {
-                $buscaPorSexo->setTipoRhId(null);
+            if ($policial->getTipoRh() === $this) {
+                $policial->setTipoRh(null);
             }
         }
 
         return $this;
     }
+
 }

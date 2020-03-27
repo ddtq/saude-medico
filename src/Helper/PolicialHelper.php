@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 use App\Entity\Policial;
+use App\Entity\Cargo;
 
 abstract class PolicialHelper
 {
@@ -57,10 +58,29 @@ abstract class PolicialHelper
         $policial = null;
 
         if($result = $stmt->fetch()){
+
             $policial = new Policial();
-            $policial->setRg($rg);    
-            $policial->setNome($result['nome']); 
+
+            $cargo = $em->getRepository(Cargo::class)->findOne($result['cargo']);
+
+            $policial
+                ->setRg($rg)
+                ->setNome($result['nome'])
+                ->setDataNascimento(new \DateTime($result['nascimento'], new \DateTimeZone('America/Sao_Paulo')))
+                ->setQuadro($result['quadro'])
+                ->setSubquadro($result['subquadro'])
+                ->setOpmMeta4Id('')
+                ->setOpmNome('')
+                ->setOpmAbrev('')
+                ->setCreatedAt(new \DateTime())
+//                ->setTipoRh()
+//                ->setCargo($cargo)
+//                ->setSexo()
+//                ->setMunicipio()
+            ;
+
         }
+
         return $policial;
     }
 

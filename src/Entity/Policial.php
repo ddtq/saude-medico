@@ -29,9 +29,9 @@ class Policial
     private $nome;
 
     /**
-     * @ORM\Column(type="datetimetz")
+     * @ORM\Column(name="data_nascimento",type="datetimetz")
      */
-    private $data_nascimento;
+    private $dataNascimento;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -44,42 +44,42 @@ class Policial
     private $subquadro;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(name="opm_meta4_id",type="string", length=15)
      */
-    private $opm_meta4_id;
+    private $opmMeta4Id;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(name="opm_nome",type="string", length=80)
      */
-    private $opm_nome;
+    private $opmNome;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(name="opm_abrev",type="string",length=80)
      */
-    private $opm_abrev;
+    private $opmAbrev;
 
     /**
-     * @ORM\Column(type="datetimetz")
+     * @ORM\Column(name="created_at",type="datetimetz")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TipoRh", inversedBy="buscaPorSexo")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\TipoRh", inversedBy="policiais")
+     * @ORM\JoinColumn(name="tipo_rh_id",nullable=false, referencedColumnName="id")
      */
-    private $tipo_rh_id;
+    private $tipoRh;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cargo", inversedBy="policials")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cargo",inversedBy="policiais")
+     * @ORM\JoinColumn(name="cargo_id",referencedColumnName="id")
      */
-    private $cargo_id;
+    private $cargo;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Sexo", inversedBy="policials")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="sexo_id",nullable=false,referencedColumnName="id")
      */
-    private $sexo_id;
+    private $sexo;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Triagem", mappedBy="policial_id")
@@ -87,9 +87,9 @@ class Policial
     private $triagems;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(name="municipio_uf",type="string", length=50)
      */
-    private $municipio_UF;
+    private $municipioUF;
 
     public function __construct()
     {
@@ -127,12 +127,12 @@ class Policial
 
     public function getDataNascimento(): ?\DateTimeInterface
     {
-        return $this->data_nascimento;
+        return $this->dataNascimento;
     }
 
-    public function setDataNascimento(\DateTimeInterface $data_nascimento): self
+    public function setDataNascimento(\DateTimeInterface $dataNascimento): self
     {
-        $this->data_nascimento = $data_nascimento;
+        $this->dataNascimento = $dataNascimento;
 
         return $this;
     }
@@ -163,84 +163,84 @@ class Policial
 
     public function getOpmMeta4Id(): ?string
     {
-        return $this->opm_meta4_id;
+        return $this->opmMeta4Id;
     }
 
-    public function setOpmMeta4Id(int $opm_meta4_id): self
+    public function setOpmMeta4Id(string $opmMeta4Id): self
     {
-        $this->opm_meta4_id = $opm_meta4_id;
+        $this->opmMeta4Id = $opmMeta4Id;
 
         return $this;
     }
 
     public function getOpmNome(): ?string
     {
-        return $this->opm_nome;
+        return $this->opmNome;
     }
 
-    public function setOpmNome(string $opm_nome): self
+    public function setOpmNome(string $opmNome): self
     {
-        $this->opm_nome = $opm_nome;
+        $this->opmNome = $opmNome;
 
         return $this;
     }
 
     public function getOpmAbrev(): ?string
     {
-        return $this->opm_abrev;
+        return $this->opmAbrev;
     }
 
-    public function setOpmAbrev(string $opm_abrev): self
+    public function setOpmAbrev(string $opmAbrev): self
     {
-        $this->opm_abrev = $opm_abrev;
+        $this->opmAbrev = $opmAbrev;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getTipoRhId(): ?TipoRh
+    public function getTipoRh(): ?TipoRh
     {
-        return $this->tipo_rh_id;
+        return $this->tipoRh;
     }
 
-    public function setTipoRhId(?TipoRh $tipo_rh_id): self
+    public function setTipoRh(?TipoRh $tipoRh): self
     {
-        $this->tipo_rh_id = $tipo_rh_id;
+        $this->tipoRh = $tipoRh;
 
         return $this;
     }
 
-    public function getCargoId(): ?Cargo
+    public function getCargo(): ?Cargo
     {
-        return $this->cargo_id;
+        return $this->cargo;
     }
 
-    public function setCargoId(?Cargo $cargo_id): self
+    public function setCargo(?Cargo $cargo): self
     {
-        $this->cargo_id = $cargo_id;
+        $this->cargo = $cargo;
 
         return $this;
     }
 
-    public function getSexoId(): ?Sexo
+    public function getSexo(): ?Sexo
     {
-        return $this->sexo_id;
+        return $this->sexo;
     }
 
-    public function setSexoId(?Sexo $sexo_id): self
+    public function setSexo(?Sexo $sexo): self
     {
-        $this->sexo_id = $sexo_id;
+        $this->sexo = $sexo;
 
         return $this;
     }
@@ -255,12 +255,12 @@ class Policial
 
     public function getMunicipioUF(): ?string
     {
-        return $this->municipio_UF;
+        return $this->municipioUF;
     }
 
-    public function setMunicipioUF(string $municipio_UF): self
+    public function setMunicipioUF(string $municipioUF): self
     {
-        $this->municipio_UF = $municipio_UF;
+        $this->municipioUF = $municipioUF;
 
         return $this;
     }

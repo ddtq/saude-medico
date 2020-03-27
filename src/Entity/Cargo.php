@@ -14,8 +14,7 @@ class Cargo
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=80)
      */
     private $id;
 
@@ -25,23 +24,39 @@ class Cargo
     private $descricao;
 
     /**
+     * @ORM\Column(type="string", length=80)
+     */
+    private $abreviatura;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $ordem;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="cargo_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="cargo")
      */
-    private $policials;
+    private $policiais;
 
     public function __construct()
     {
-        $this->policials = new ArrayCollection();
+        $this->policiais = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function getAbreviatura()
+    {
+        return $this->abreviatura;
+    }
+
+    public function setAbreviatura($abreviatura): self
+    {
+        $this->abreviatura = $abreviatura;
+        return $this;
     }
 
     public function getDescricao(): ?string
@@ -71,15 +86,15 @@ class Cargo
     /**
      * @return Collection|Policial[]
      */
-    public function getPolicials(): Collection
+    public function getPoliciais(): Collection
     {
-        return $this->policials;
+        return $this->policiais;
     }
 
     public function addPolicial(Policial $policial): self
     {
-        if (!$this->policials->contains($policial)) {
-            $this->policials[] = $policial;
+        if (!$this->policiais->contains($policial)) {
+            $this->policiais[] = $policial;
             $policial->setCargoId($this);
         }
 
@@ -88,8 +103,8 @@ class Cargo
 
     public function removePolicial(Policial $policial): self
     {
-        if ($this->policials->contains($policial)) {
-            $this->policials->removeElement($policial);
+        if ($this->policiais->contains($policial)) {
+            $this->policiais->removeElement($policial);
             // set the owning side to null (unless already changed)
             if ($policial->getCargoId() === $this) {
                 $policial->setCargoId(null);

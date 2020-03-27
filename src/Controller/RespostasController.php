@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Helper\PolicialHelper;
+
 
 
 class RespostasController extends AbstractController
@@ -14,6 +17,12 @@ class RespostasController extends AbstractController
      */
     public function index(Request $request)
     {
+        $policial = PolicialHelper::criarPolicialPeloRg($this->getDoctrine(), '123456789');
+
+        $serializer = $this->get("serializer");
+
+        return new Response($serializer->serialize($policial,"json"));
+
         $error = array();
 
         $data = array();

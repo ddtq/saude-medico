@@ -1,0 +1,56 @@
+@startuml
+
+title "/saude/respostas"
+
+actor webapp
+control "RespostasController" as RC
+entity PolicialHelper as PH
+entity PolicialRepository as PMR
+entity Policial as PM
+entity EntityManager as em
+entity Triagem
+entity Resposta
+database saude
+
+activate RC
+webapp->RC: POST /saude/respostas
+RC->RC:isPost()
+RC->RC:isValid()
+RC->RC:criaPolicial()
+activate RC
+
+RC->PH:criaPolicialPeloRg()
+activate PH
+
+PH->em:getRepository(Policial::class)
+PH<--em: PolicialRepository()
+PH->PMR:find()
+activate PMR
+PMR->saude
+alt policial existe em db saude
+    PH<--PMR: Policial
+    deactivate PMR
+else policial não existe em db saude
+    PH->PM: new Policial()
+    PH->PM: setRG()
+    PH->em: persist(policial)
+    PH->em: flush
+    em->saude: insert()
+end
+
+RC<--PH: Policial()
+deactivate PH
+deactivate RC
+RC->Triagem: new Triagem()
+RC->Triagem: setPolicial()
+loop foreach resposta
+RC->Resposta: new Resposta()
+RC->em: persist(resposta)
+RC->Triagem: addResposta()
+end
+RC->em: persist(triagem)
+RC->em: flush()
+em->saude: insert
+deactivate RC
+
+@enduml

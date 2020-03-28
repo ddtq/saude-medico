@@ -13,8 +13,7 @@ class Sexo
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string",length=20)
      */
     private $id;
 
@@ -24,16 +23,23 @@ class Sexo
     private $descricao;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="sexo_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="sexo")
      */
-    private $policials;
+    private $policiais;
 
     public function __construct()
     {
-        $this->policials = new ArrayCollection();
+        $this->policiais = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -53,16 +59,16 @@ class Sexo
     /**
      * @return Collection|Policial[]
      */
-    public function getPolicials(): Collection
+    public function getPoliciais(): Collection
     {
-        return $this->policials;
+        return $this->policiais;
     }
 
     public function addPolicial(Policial $policial): self
     {
-        if (!$this->policials->contains($policial)) {
-            $this->policials[] = $policial;
-            $policial->setSexoId($this);
+        if (!$this->policiais->contains($policial)) {
+            $this->policiais[] = $policial;
+            $policial->setSexo($this);
         }
 
         return $this;
@@ -70,11 +76,11 @@ class Sexo
 
     public function removePolicial(Policial $policial): self
     {
-        if ($this->policials->contains($policial)) {
-            $this->policials->removeElement($policial);
+        if ($this->policiais->contains($policial)) {
+            $this->policiais->removeElement($policial);
             // set the owning side to null (unless already changed)
-            if ($policial->getSexoId() === $this) {
-                $policial->setSexoId(null);
+            if ($policial->getSexo() === $this) {
+                $policial->setSexo(null);
             }
         }
 

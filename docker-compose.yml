@@ -20,6 +20,8 @@ services:
   db:
     image: postgres:12.2
     env_file: .env
+    ports:
+      - "5454:5432"
   db_rh:
     image: ddtq/saude_db_rh:0.1
     restart: always

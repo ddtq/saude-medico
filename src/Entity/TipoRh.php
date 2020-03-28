@@ -11,41 +11,60 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoRh
 {
+    public const ATIVA="ATIVA";
+    public const APOSENTADO="APOSENTADO";
+
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=30)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $decricao;
+    private $descricao;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="tipo_rh_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="tipoRh")
      */
-    private $buscaPorSexo;
+    private $policiais;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $dtIni;
+
+    /**
+     * @ORM\Column(type="datetimetz", nullable=true)
+     */
+    private $dtFim;
 
     public function __construct()
     {
-        $this->buscaPorSexo = new ArrayCollection();
+        $this->policiais = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getDecricao(): ?string
+    public function setId(string $id): self
     {
-        return $this->decricao;
+        $this->id = $id;
+
+        return $this;
     }
 
-    public function setDecricao(string $decricao): self
+    public function getDescricao(): ?string
     {
-        $this->decricao = $decricao;
+        return $this->descricao;
+    }
+
+    public function setDescricao(string $descricao): self
+    {
+        $this->descricao = $descricao;
 
         return $this;
     }
@@ -53,31 +72,56 @@ class TipoRh
     /**
      * @return Collection|Policial[]
      */
-    public function getBuscaPorSexo(): Collection
+    public function getPoliciais(): Collection
     {
-        return $this->buscaPorSexo;
+        return $this->policiais;
     }
 
-    public function addBuscaPorSexo(Policial $buscaPorSexo): self
+    public function addPolicial(Policial $policial): self
     {
-        if (!$this->buscaPorSexo->contains($buscaPorSexo)) {
-            $this->buscaPorSexo[] = $buscaPorSexo;
-            $buscaPorSexo->setTipoRhId($this);
+        if (!$this->policiais->contains($policial)) {
+            $this->policiais[] = $policial;
+            $policial->setTipoRh($this);
         }
 
         return $this;
     }
 
-    public function removeBuscaPorSexo(Policial $buscaPorSexo): self
+    public function removePolicial(Policial $policial): self
     {
-        if ($this->buscaPorSexo->contains($buscaPorSexo)) {
-            $this->buscaPorSexo->removeElement($buscaPorSexo);
+        if ($this->policiais->contains($policial)) {
+            $this->policiais->removeElement($policial);
             // set the owning side to null (unless already changed)
-            if ($buscaPorSexo->getTipoRhId() === $this) {
-                $buscaPorSexo->setTipoRhId(null);
+            if ($policial->getTipoRh() === $this) {
+                $policial->setTipoRh(null);
             }
         }
 
         return $this;
     }
+
+    public function getDtIni(): ?\DateTimeInterface
+    {
+        return $this->dtIni;
+    }
+
+    public function setDtIni(\DateTimeInterface $dtIni): self
+    {
+        $this->dtIni = $dtIni;
+
+        return $this;
+    }
+
+    public function getDtFim(): ?\DateTimeInterface
+    {
+        return $this->dtFim;
+    }
+
+    public function setDtFim(?\DateTimeInterface $dtFim): self
+    {
+        $this->dtFim = $dtFim;
+
+        return $this;
+    }
+
 }

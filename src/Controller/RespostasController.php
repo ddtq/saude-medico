@@ -2,25 +2,30 @@
 
 namespace App\Controller;
 
+use App\Helper\PolicialHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class RespostasController extends AbstractController
 {
     /**
      * @Route("/saude/respostas", name="respostas", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
+        $policial = PolicialHelper::criarPolicialPeloRg($this->getDoctrine(), '123456789');
+
+        return new Response((string)$policial);
+
         $error = array();
 
         $data = array();
-
-        if ($request->isMethod('GET')) {
-            $error[] = 'POST é o único método permitido.';
-        }
+        $error[] = 'POST é o único método permitido.';
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $data = json_decode($request->getContent(), true);
@@ -28,7 +33,6 @@ class RespostasController extends AbstractController
         } else {
             $error[] = 'Cabeçalho deve ter "Content-Type=application/json"';
         }
-
 
         return $this->json([
             'result' => 'Caso suspeito',

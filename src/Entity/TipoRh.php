@@ -11,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoRh
 {
-    public const TIPO_RH_ATIVA="TIPO_RH_ATIVA";
-    public const TIPO_RH_APOSENTADO="TIPO_RH_APOSENTADO";
+    public const ATIVA="ATIVA";
+    public const APOSENTADO="APOSENTADO";
 
     /**
      * @ORM\Id()
@@ -23,7 +23,7 @@ class TipoRh
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $decricao;
+    private $descricao;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="tipoRh")
@@ -33,7 +33,7 @@ class TipoRh
     /**
      * @ORM\Column(type="datetimetz")
      */
-    private $diIni;
+    private $dtIni;
 
     /**
      * @ORM\Column(type="datetimetz", nullable=true)
@@ -57,14 +57,14 @@ class TipoRh
         return $this;
     }
 
-    public function getDecricao(): ?string
+    public function getDescricao(): ?string
     {
-        return $this->decricao;
+        return $this->descricao;
     }
 
-    public function setDecricao(string $decricao): self
+    public function setDescricao(string $descricao): self
     {
-        $this->decricao = $decricao;
+        $this->descricao = $descricao;
 
         return $this;
     }
@@ -100,14 +100,14 @@ class TipoRh
         return $this;
     }
 
-    public function getDiIni(): ?\DateTimeInterface
+    public function getDtIni(): ?\DateTimeInterface
     {
-        return $this->diIni;
+        return $this->dtIni;
     }
 
-    public function setDiIni(\DateTimeInterface $diIni): self
+    public function setDtIni(\DateTimeInterface $dtIni): self
     {
-        $this->diIni = $diIni;
+        $this->dtIni = $dtIni;
 
         return $this;
     }

@@ -33,7 +33,7 @@ final class Version20200328183503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_9EF773F813AC380 ON policial (cargo_id)');
         $this->addSql('CREATE INDEX IDX_9EF773F2B32DB58 ON policial (sexo_id)');
         $this->addSql('CREATE TABLE pergunta (id INT NOT NULL, pergunta TEXT NOT NULL, informacao TEXT NOT NULL, ordem INT NOT NULL, dt_ini TIMESTAMP(0) WITH TIME ZONE NOT NULL, dt_fim TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE tipo_rh (id VARCHAR(30) NOT NULL, decricao VARCHAR(80) NOT NULL, di_ini TIMESTAMP(0) WITH TIME ZONE NOT NULL, dt_fim TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE tipo_rh (id VARCHAR(30) NOT NULL, descricao VARCHAR(80) NOT NULL, dt_ini TIMESTAMP(0) WITH TIME ZONE NOT NULL, dt_fim TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE resposta (id INT NOT NULL, pergunta_id_id INT NOT NULL, triagem_id_id INT NOT NULL, resposta BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_62A969065C3220A6 ON resposta (pergunta_id_id)');
         $this->addSql('CREATE INDEX IDX_62A96906A62234F7 ON resposta (triagem_id_id)');
@@ -58,7 +58,6 @@ final class Version20200328183503 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE triagem DROP CONSTRAINT FK_B2085D742A62081F');
         $this->addSql('ALTER TABLE policial DROP CONSTRAINT FK_9EF773F813AC380');
         $this->addSql('ALTER TABLE triagem DROP CONSTRAINT FK_B2085D7419BD774C');

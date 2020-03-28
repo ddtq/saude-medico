@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -87,13 +88,13 @@ class Policial
     private $triagens;
 
     /**
-     * @ORM\Column(name="municipio_uf",type="string", length=50)
+     * @ORM\Column(name="municipio",type="string", length=50)
      */
-    private $municipioUF;
+    private $municipio;
 
     public function __construct()
     {
-        $this->triagems = new ArrayCollection();
+        $this->triagens = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,12 +126,12 @@ class Policial
         return $this;
     }
 
-    public function getDataNascimento(): ?\DateTimeInterface
+    public function getDataNascimento(): ?DateTimeInterface
     {
         return $this->dataNascimento;
     }
 
-    public function setDataNascimento(\DateTimeInterface $dataNascimento): self
+    public function setDataNascimento(DateTimeInterface $dataNascimento): self
     {
         $this->dataNascimento = $dataNascimento;
 
@@ -197,12 +198,12 @@ class Policial
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -248,27 +249,27 @@ class Policial
     /**
      * @return Collection|Triagem[]
      */
-    public function getTriagems(): Collection
+    public function getTriagens(): Collection
     {
-        return $this->triagems;
+        return $this->triagens;
     }
 
-    public function getMunicipioUF(): ?string
+    public function getMunicipio(): ?string
     {
-        return $this->municipioUF;
+        return $this->municipio;
     }
 
-    public function setMunicipioUF(string $municipioUF): self
+    public function setMunicipio(string $municipio): self
     {
-        $this->municipioUF = $municipioUF;
+        $this->municipio = $municipio;
 
         return $this;
     }
 
     public function addTriagem(Triagem $triagem): self
     {
-        if (!$this->triagems->contains($triagem)) {
-            $this->triagems[] = $triagem;
+        if (!$this->triagens->contains($triagem)) {
+            $this->triagens[] = $triagem;
             $triagem->setPolicialId($this);
         }
 
@@ -277,11 +278,11 @@ class Policial
 
     public function removeTriagem(Triagem $triagem): self
     {
-        if ($this->triagems->contains($triagem)) {
-            $this->triagems->removeElement($triagem);
+        if ($this->triagens->contains($triagem)) {
+            $this->triagens->removeElement($triagem);
             // set the owning side to null (unless already changed)
-            if ($triagem->getPolicialId() === $this) {
-                $triagem->setPolicialId(null);
+            if ($triagem->getPolicial() === $this) {
+                $triagem->setPolicial(null);
             }
         }
 

@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use App\Helper\PolicialHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Helper\PolicialHelper;
-
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 
 class RespostasController extends AbstractController
 {
     /**
      * @Route("/saude/respostas", name="respostas", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -21,15 +23,12 @@ class RespostasController extends AbstractController
 
         $serializer = $this->get("serializer");
 
-        return new Response($serializer->serialize($policial,"json"));
+        return new Response($serializer->serialize($policial, "json", [AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true]));
 
         $error = array();
 
         $data = array();
-
-        if ($request->isMethod('GET')) {
-            $error[] = 'POST é o único método permitido.';
-        }
+        $error[] = 'POST é o único método permitido.';
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $data = json_decode($request->getContent(), true);
@@ -37,7 +36,6 @@ class RespostasController extends AbstractController
         } else {
             $error[] = 'Cabeçalho deve ter "Content-Type=application/json"';
         }
-
 
         return $this->json([
             'result' => 'Caso suspeito',

@@ -11,10 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoRh
 {
+    public const TIPO_RH_ATIVA="TIPO_RH_ATIVA";
+    public const TIPO_RH_APOSENTADO="TIPO_RH_APOSENTADO";
+
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=30)
      */
     private $id;
 
@@ -28,14 +30,31 @@ class TipoRh
      */
     private $policiais;
 
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $diIni;
+
+    /**
+     * @ORM\Column(type="datetimetz", nullable=true)
+     */
+    private $dtFim;
+
     public function __construct()
     {
         $this->policiais = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getDecricao(): ?string
@@ -77,6 +96,30 @@ class TipoRh
                 $policial->setTipoRh(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiIni(): ?\DateTimeInterface
+    {
+        return $this->diIni;
+    }
+
+    public function setDiIni(\DateTimeInterface $diIni): self
+    {
+        $this->diIni = $diIni;
+
+        return $this;
+    }
+
+    public function getDtFim(): ?\DateTimeInterface
+    {
+        return $this->dtFim;
+    }
+
+    public function setDtFim(?\DateTimeInterface $dtFim): self
+    {
+        $this->dtFim = $dtFim;
 
         return $this;
     }

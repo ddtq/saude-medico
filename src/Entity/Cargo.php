@@ -14,7 +14,7 @@ class Cargo
 {
     /**
      * @ORM\Id()
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=30)
      */
     private $id;
 
@@ -33,10 +33,21 @@ class Cargo
      */
     private $ordem;
 
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Policial", mappedBy="cargo")
      */
     private $policiais;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $dtIni;
+
+    /**
+     * @ORM\Column(type="datetimetz", nullable=true)
+     */
+    private $dtFim;
 
     public function __construct()
     {
@@ -46,6 +57,13 @@ class Cargo
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getAbreviatura()
@@ -110,6 +128,30 @@ class Cargo
                 $policial->setCargoId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDtIni(): ?\DateTimeInterface
+    {
+        return $this->dtIni;
+    }
+
+    public function setDtIni(\DateTimeInterface $dtIni): self
+    {
+        $this->dtIni = $dtIni;
+
+        return $this;
+    }
+
+    public function getDtFim(): ?\DateTimeInterface
+    {
+        return $this->dtFim;
+    }
+
+    public function setDtFim(?\DateTimeInterface $dtFim): self
+    {
+        $this->dtFim = $dtFim;
 
         return $this;
     }

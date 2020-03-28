@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\PostgresTypes\InetType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,18 +22,18 @@ class Triagem
     /**
      * @ORM\Column(type="datetimetz")
      */
-    private $dt_hr_triagem;
+    private $dtTriagem;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="inet", length=15)
      */
     private $ip;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TriagemSituacao", inversedBy="triagems")
+     * @ORM\ManyToOne(targetEntity="App\Entity\TriagemSituacao", inversedBy="triagens")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $triagem_situacao_id;
+    private $triagemSituacao;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -42,28 +43,34 @@ class Triagem
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $simtomas;
+    private $sintomas;
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $telefone_celular;
+    private $telefoneCelular;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $telefone_fixo;
+    private $telefoneFixo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resposta", mappedBy="triagem_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Resposta", mappedBy="triagemId")
      */
     private $respostas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Policial", inversedBy="triagems")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Policial", inversedBy="triagens")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $policial_id;
+    private $policial;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ResultadoTriagem", inversedBy="triagens")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $resultadoTriagem;
 
     public function __construct()
     {
@@ -75,38 +82,38 @@ class Triagem
         return $this->id;
     }
 
-    public function getDtHrTriagem(): ?\DateTimeInterface
+    public function getDtTriagem(): ?\DateTimeInterface
     {
-        return $this->dt_hr_triagem;
+        return $this->dtTriagem;
     }
 
-    public function setDtHrTriagem(\DateTimeInterface $dt_hr_triagem): self
+    public function setDtTriagem(\DateTimeInterface $dtTriagem): self
     {
-        $this->dt_hr_triagem = $dt_hr_triagem;
+        $this->dtTriagem = $dTriagem;
 
         return $this;
     }
 
-    public function getIp(): ?string
+    public function getIp(): ?InetType
     {
         return $this->ip;
     }
 
-    public function setIp(string $ip): self
+    public function setIp(InetType $ip): self
     {
         $this->ip = $ip;
 
         return $this;
     }
 
-    public function getTriagemSituacaoId(): ?TriagemSituacao
+    public function getTriagemSituacao(): ?TriagemSituacao
     {
-        return $this->triagem_situacao_id;
+        return $this->triagemSituacao;
     }
 
-    public function setTriagemSituacaoId(?TriagemSituacao $triagem_situacao_id): self
+    public function setTriagemSituacao(?TriagemSituacao $triagemSituacaoId): self
     {
-        $this->triagem_situacao_id = $triagem_situacao_id;
+        $this->triagemIituacaoId = $triagemSituacaoId;
 
         return $this;
     }
@@ -123,38 +130,38 @@ class Triagem
         return $this;
     }
 
-    public function getSimtomas(): ?string
+    public function getSintomas(): ?string
     {
-        return $this->simtomas;
+        return $this->sintomas;
     }
 
-    public function setSimtomas(?string $simtomas): self
+    public function setSintomas(?string $sintomas): self
     {
-        $this->simtomas = $simtomas;
+        $this->sintomas = $sintomas;
 
         return $this;
     }
 
     public function getTelefoneCelular(): ?string
     {
-        return $this->telefone_celular;
+        return $this->telefoneCelular;
     }
 
-    public function setTelefoneCelular(string $telefone_celular): self
+    public function setTelefoneCelular(string $telefoneCelular): self
     {
-        $this->telefone_celular = $telefone_celular;
+        $this->telefoneCelular = $telefoneCelular;
 
         return $this;
     }
 
     public function getTelefoneFixo(): ?string
     {
-        return $this->telefone_fixo;
+        return $this->telefoneFixo;
     }
 
-    public function setTelefoneFixo(?string $telefone_fixo): self
+    public function setTelefoneFixo(?string $telefoneFixo): self
     {
-        $this->telefone_fixo = $telefone_fixo;
+        $this->telefoneFixo = $telefoneFixo;
 
         return $this;
     }
@@ -190,14 +197,26 @@ class Triagem
         return $this;
     }
 
-    public function getPolicialId(): ?Policial
+    public function getPolicial(): ?Policial
     {
-        return $this->policial_id;
+        return $this->policial;
     }
 
-    public function setPolicialId(?Policial $policial_id): self
+    public function setPolicialId(?Policial $policial): self
     {
-        $this->policial_id = $policial_id;
+        $this->policial = $policial;
+
+        return $this;
+    }
+
+    public function getResultadoTriagem(): ?ResultadoTriagem
+    {
+        return $this->resultadoTriagem;
+    }
+
+    public function setResultadoTriagem(?ResultadoTriagem $resultadoTriagem): self
+    {
+        $this->resultadoTriagem = $resultadoTriagem;
 
         return $this;
     }

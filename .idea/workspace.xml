@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec2d57bc-8e21-4ba3-9065-f6bf263c6581" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Cargo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cargo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Policial.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Policial.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Sexo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Sexo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TipoRh.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TipoRh.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helper/PolicialHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper/PolicialHelper.php" afterDir="false" />
-    </list>
+    <list default="true" id="ec2d57bc-8e21-4ba3-9065-f6bf263c6581" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +15,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="ddtq/saude_app:0.2">
     <include_path>
@@ -95,9 +94,11 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/opensoft/doctrine-postgres-types" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ZgNmgQx5hN2Eck7OEpT38muhOO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -148,6 +149,7 @@
       <workItem from="1585258838187" duration="370000" />
       <workItem from="1585259238275" duration="118000" />
       <workItem from="1585319332124" duration="18625000" />
+      <workItem from="1585415284206" duration="3430000" />
     </task>
     <servers />
   </component>
@@ -183,9 +185,10 @@
       <screen x="0" y="27" width="3840" height="1053" />
     </state>
     <state x="734" y="271" width="441" height="562" key="#com.intellij.ide.util.MemberChooser/0.27.3840.1053@0.27.3840.1053" timestamp="1585343425839" />
-    <state x="465" y="27" width="980" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585342222567">
-      <screen x="0" y="27" width="3840" height="1053" />
+    <state x="165" y="27" width="426" height="741" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585418764404">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
+    <state x="165" y="27" width="426" height="741" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.27.1366.741/1366.0.1600.900@0.27.1366.741" timestamp="1585418764404" />
     <state x="465" y="27" width="980" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.27.3840.1053@0.27.3840.1053" timestamp="1585342222567" />
     <state x="45" y="124" width="860" height="856" key="CommitChangelistDialog2" timestamp="1585335282220">
       <screen x="0" y="27" width="1920" height="1053" />

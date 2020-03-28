@@ -82,9 +82,9 @@ class Policial
     private $sexo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Triagem", mappedBy="policial_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Triagem", mappedBy="policial")
      */
-    private $triagems;
+    private $triagens;
 
     /**
      * @ORM\Column(name="municipio_uf",type="string", length=50)

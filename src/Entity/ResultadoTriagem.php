@@ -7,12 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TriagemSituacaoRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ResultadoTriagemRepository")
  */
-class TriagemSituacao
+class ResultadoTriagem
 {
-    public const TRIAGEM_SITUACAO_REGISTRADA="TRIAGEM_SITUACAO_REGISTRADA";
-
     /**
      * @ORM\Id()
      * @ORM\Column(type="string", length=40)
@@ -20,9 +18,14 @@ class TriagemSituacao
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=40)
      */
     private $descricao;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $mensagem;
 
     /**
      * @ORM\Column(type="datetimetz")
@@ -35,23 +38,18 @@ class TriagemSituacao
     private $dtFim;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Triagem", mappedBy="triagemSituacao")
+     * @ORM\OneToMany(targetEntity="App\Entity\Triagem", mappedBy="resultadoTriagem")
      */
     private $triagens;
 
     public function __construct()
     {
-        $this->triagems = new ArrayCollection();
+        $this->triagens = new ArrayCollection();
     }
 
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    public function getDescricao(): ?string
-    {
-        return $this->descricao;
     }
 
     public function setId(string $id): self
@@ -61,9 +59,26 @@ class TriagemSituacao
         return $this;
     }
 
+    public function getDescricao(): ?string
+    {
+        return $this->descricao;
+    }
+
     public function setDescricao(string $descricao): self
     {
         $this->descricao = $descricao;
+
+        return $this;
+    }
+
+    public function getMensagem(): ?string
+    {
+        return $this->mensagem;
+    }
+
+    public function setMensagem(string $mensagem): self
+    {
+        $this->mensagem = $mensagem;
 
         return $this;
     }
@@ -95,28 +110,28 @@ class TriagemSituacao
     /**
      * @return Collection|Triagem[]
      */
-    public function getTriagems(): Collection
+    public function getTriagens(): Collection
     {
-        return $this->triagems;
+        return $this->triagens;
     }
 
-    public function addTriagem(Triagem $triagem): self
+    public function addTriagen(Triagem $triagen): self
     {
-        if (!$this->triagems->contains($triagem)) {
-            $this->triagems[] = $triagem;
-            $triagem->setTriagemSituacaoId($this);
+        if (!$this->triagens->contains($triagen)) {
+            $this->triagens[] = $triagen;
+            $triagen->setResultadoTriagem($this);
         }
 
         return $this;
     }
 
-    public function removeTriagem(Triagem $triagem): self
+    public function removeTriagen(Triagem $triagen): self
     {
-        if ($this->triagems->contains($triagem)) {
-            $this->triagems->removeElement($triagem);
+        if ($this->triagens->contains($triagen)) {
+            $this->triagens->removeElement($triagen);
             // set the owning side to null (unless already changed)
-            if ($triagem->getTriagemSituacaoId() === $this) {
-                $triagem->setTriagemSituacaoId(null);
+            if ($triagen->getResultadoTriagem() === $this) {
+                $triagen->setResultadoTriagem(null);
             }
         }
 

@@ -17,7 +17,7 @@ up-prod:
 	make chown-user
 
 up:
-	docker-compose up -d
+	docker-compose up --rm -d
 	make chown-user
 
 down:
@@ -40,7 +40,7 @@ migration:
 	make chown-user
 
 cp_env:
-	cp .env.dist .env
+	cp .env.dist .env.local
 
 db_rh:
 	docker exec -it saude_db_rh_1 bash -c "/bin/sh /docker-entrypoint-initdb.d/db_rh.sh"

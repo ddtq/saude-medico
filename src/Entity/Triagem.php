@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\PostgresTypes\InetType;
@@ -82,14 +83,14 @@ class Triagem
         return $this->id;
     }
 
-    public function getDtTriagem(): ?\DateTimeInterface
+    public function getDtTriagem(): ?DateTimeInterface
     {
         return $this->dtTriagem;
     }
 
-    public function setDtTriagem(\DateTimeInterface $dtTriagem): self
+    public function setDtTriagem(DateTimeInterface $dtTriagem): self
     {
-        $this->dtTriagem = $dTriagem;
+        $this->dtTriagem = $dtTriagem;
 
         return $this;
     }
@@ -202,7 +203,7 @@ class Triagem
         return $this->policial;
     }
 
-    public function setPolicialId(?Policial $policial): self
+    public function setPolicial(?Policial $policial): self
     {
         $this->policial = $policial;
 

@@ -288,4 +288,23 @@ class Policial
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return print_r([
+            "id" => $this->getId(),
+            "rg" => $this->getRg(),
+            "nome" => $this->getNome(),
+            "quadro" => $this->getQuadro(),
+            "subquadro" => $this->getSubquadro(),
+            "tipoRh" => $this->getTipoRh()->getDescricao(),
+            "dataNascimento" => $this->getDataNascimento()->format("Y-m-d H:i:sO"),
+            "sexo" => $this->getSexo()->getDescricao(),
+            "cargo" => $this->getCargo()->getAbreviatura(),
+            "opmAbrev" => $this->getOpmAbrev(),
+            "opmNome" => $this->getOpmNome(),
+            "opmMeta4Id" => $this->getOpmMeta4Id(),
+            "createdAt" => $this->getCreatedAt()->format("Y-m-d H:i:sO"),
+        ], true);
+    }
 }

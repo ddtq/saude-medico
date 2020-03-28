@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 
 class RespostasController extends AbstractController
@@ -21,9 +20,7 @@ class RespostasController extends AbstractController
     {
         $policial = PolicialHelper::criarPolicialPeloRg($this->getDoctrine(), '123456789');
 
-        $serializer = $this->get("serializer");
-
-        return new Response($serializer->serialize($policial, "json", [AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true]));
+        return new Response((string)$policial);
 
         $error = array();
 

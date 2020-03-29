@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ResultadoTriagem
 {
+    public const CASO_NAO_SE_ENQUADRA="CASO_NAO_SE_ENQUADRA";
+    public const CASO_SUSPEITO_OU_PROVAVEL="CASO_SUSPEITO_OU_PROVAVEL";
     /**
      * @ORM\Id()
      * @ORM\Column(type="string", length=40)

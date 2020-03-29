@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\ResultadoTriagem;
 use App\Entity\Triagem;
 use App\Helper\PolicialHelper;
+use App\Helper\TriagemHelper;
 use App\Repository\TriagemRepository;
 use JsonSchema\Exception\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,31 +36,24 @@ class RespostasController extends AbstractController
          */
         $triagem = $triagemRepository->createFromRequest($this->getDoctrine(), $request);
 
-        //analisar triagem e incluir resultado antes de retornar
+        $resultado = TriagemHelper::analisar($triagem);
 
-//        $this->getDoctrine()->getEntityManager()->persist($triagem);
-//
-//        $this->getDoctrine()->getEntityManager()->flush();
+        /**
+         * @var $resultadoTriagem ResultadoTriagem
+         */
+        $resultadoTriagem = $this->getDoctrine()->getManager()->find(ResultadoTriagem::class, $resultado);
 
+        $triagem->setResultadoTriagem($resultadoTriagem);
 
-//        $policial = PolicialHelper::criarPolicialPeloRg($this->getDoctrine(), '123456789');
-//
-//        return new Response((string)$policial);
-//
-//
-//        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
-//            $data = json_decode($request->getContent(), true);
-//            $request->request->replace(is_array($data) ? $data : array());
-//        } else {
-//            $error[] = 'Cabeçalho deve ter "Content-Type=application/json"';
-//        }
-//
-//        return $this->json([
-//            'result' => 'Caso suspeito',
-//            'mensagem' => '<p>Baseado em sua resposta, é provável que essa situação .... . </p><p>Procure um posto de saúde. Em breve um médico da Coroporação poderá entrar em contato para repassar informações. Fique atento ao telefone informado no formulário.</p>',
-//            'erros' => $error,
-//            'dados_recebidos' => $data
-//        ]);
+        $this->getDoctrine()->getManager()->persist($triagem);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+            'result' => $resultadoTriagem->getDescricao(),
+            'mensagem' => $resultadoTriagem->getMensagem(),
+//            'erros' => $error
+        ]);
 
     }
 

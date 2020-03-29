@@ -75,12 +75,14 @@ class TriagemRepository extends ServiceEntityRepository
                 $resposta = new Resposta();
                 $resposta->setPergunta($pergunta);
                 $resposta->setSelected($selected = isset($r['selected']) ? $r['selected'] : null);
-                $resposta->setSelected($text = isset($r['text']) ? $r['text'] : null);
+                $resposta->setText($text = isset($r['text']) ? $r['text'] : null);
                 $this->getEntityManager()->persist($resposta);
                 $triagem->addResposta($resposta);
             }
 
         }
+
+        return $triagem;
 
     }
 

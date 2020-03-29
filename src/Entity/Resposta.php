@@ -19,58 +19,88 @@ class Resposta
     /**
      * @ORM\Column(type="boolean")
      */
-    private $resposta;
+    private $selected;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $text;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Pergunta", inversedBy="respostas")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $pergunta_id;
+    private $pergunta;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Triagem", inversedBy="respostas")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $triagem_id;
+    private $triagem;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getResposta(): ?bool
+    public function getPergunta(): ?Pergunta
     {
-        return $this->resposta;
+        return $this->pergunta;
     }
 
-    public function setResposta(bool $resposta): self
+    public function setPergunta(?Pergunta $pergunta): self
     {
-        $this->resposta = $resposta;
+        $this->pergunta = $pergunta;
 
         return $this;
     }
 
-    public function getPerguntaId(): ?Pergunta
+    public function getTriagem(): ?Triagem
     {
-        return $this->pergunta_id;
+        return $this->triagem;
     }
 
-    public function setPerguntaId(?Pergunta $pergunta_id): self
+    public function setTriagem(?Triagem $triagem): self
     {
-        $this->pergunta_id = $pergunta_id;
+        $this->triagem = $triagem;
 
         return $this;
     }
 
-    public function getTriagemId(): ?Triagem
+    /**
+     * @return mixed
+     */
+    public function getSelected()
     {
-        return $this->triagem_id;
+        return $this->selected;
     }
 
-    public function setTriagemId(?Triagem $triagem_id): self
+    /**
+     * @param mixed $selected
+     * @return Resposta
+     */
+    public function setSelected($selected)
     {
-        $this->triagem_id = $triagem_id;
-
+        $this->selected = $selected;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param mixed $text
+     * @return Resposta
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+        return $this;
+    }
+
 }

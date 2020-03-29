@@ -26,7 +26,7 @@ class Triagem
     private $dtTriagem;
 
     /**
-     * @ORM\Column(type="inet", length=15)
+     * @ORM\Column(type="inet")
      */
     private $ip;
 
@@ -57,7 +57,7 @@ class Triagem
     private $telefoneFixo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resposta", mappedBy="triagemId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Resposta", mappedBy="triagem")
      */
     private $respostas;
 
@@ -95,12 +95,12 @@ class Triagem
         return $this;
     }
 
-    public function getIp(): ?InetType
+    public function getIp(): ?string
     {
         return $this->ip;
     }
 
-    public function setIp(InetType $ip): self
+    public function setIp(string $ip): self
     {
         $this->ip = $ip;
 
@@ -112,9 +112,9 @@ class Triagem
         return $this->triagemSituacao;
     }
 
-    public function setTriagemSituacao(?TriagemSituacao $triagemSituacaoId): self
+    public function setTriagemSituacao(?TriagemSituacao $triagemSituacao): self
     {
-        $this->triagemIituacaoId = $triagemSituacaoId;
+        $this->triagemSituacao = $triagemSituacao;
 
         return $this;
     }
@@ -179,7 +179,7 @@ class Triagem
     {
         if (!$this->respostas->contains($resposta)) {
             $this->respostas[] = $resposta;
-            $resposta->setTriagemId($this);
+            $resposta->setTriagem($this);
         }
 
         return $this;
@@ -190,8 +190,8 @@ class Triagem
         if ($this->respostas->contains($resposta)) {
             $this->respostas->removeElement($resposta);
             // set the owning side to null (unless already changed)
-            if ($resposta->getTriagemId() === $this) {
-                $resposta->setTriagemId(null);
+            if ($resposta->getTriagem() === $this) {
+                $resposta->setTriagem(null);
             }
         }
 

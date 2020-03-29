@@ -44,7 +44,7 @@ class Pergunta
     private $dt_fim;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resposta", mappedBy="pergunta_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Resposta", mappedBy="pergunta")
      */
     private $respostas;
 
@@ -130,7 +130,7 @@ class Pergunta
     {
         if (!$this->respostas->contains($resposta)) {
             $this->respostas[] = $resposta;
-            $resposta->setPerguntaId($this);
+            $resposta->setPergunta($this);
         }
 
         return $this;
@@ -141,8 +141,8 @@ class Pergunta
         if ($this->respostas->contains($resposta)) {
             $this->respostas->removeElement($resposta);
             // set the owning side to null (unless already changed)
-            if ($resposta->getPerguntaId() === $this) {
-                $resposta->setPerguntaId(null);
+            if ($resposta->getPergunta() === $this) {
+                $resposta->setPergunta(null);
             }
         }
 

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TriagemSituacao
 {
-    public const TRIAGEM_SITUACAO_REGISTRADA="TRIAGEM_SITUACAO_REGISTRADA";
+    public const REGISTRADA="REGISTRADA";
 
     /**
      * @ORM\Id()
@@ -41,7 +41,7 @@ class TriagemSituacao
 
     public function __construct()
     {
-        $this->triagems = new ArrayCollection();
+        $this->triagens = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -95,16 +95,16 @@ class TriagemSituacao
     /**
      * @return Collection|Triagem[]
      */
-    public function getTriagems(): Collection
+    public function getTriagens(): Collection
     {
-        return $this->triagems;
+        return $this->triagens;
     }
 
     public function addTriagem(Triagem $triagem): self
     {
-        if (!$this->triagems->contains($triagem)) {
-            $this->triagems[] = $triagem;
-            $triagem->setTriagemSituacaoId($this);
+        if (!$this->triagens->contains($triagem)) {
+            $this->triagens[] = $triagem;
+            $triagem->setTriagemSituacao($this);
         }
 
         return $this;
@@ -115,8 +115,8 @@ class TriagemSituacao
         if ($this->triagems->contains($triagem)) {
             $this->triagems->removeElement($triagem);
             // set the owning side to null (unless already changed)
-            if ($triagem->getTriagemSituacaoId() === $this) {
-                $triagem->setTriagemSituacaoId(null);
+            if ($triagem->getTriagemSituacao() === $this) {
+                $triagem->setTriagemSituacao(null);
             }
         }
 

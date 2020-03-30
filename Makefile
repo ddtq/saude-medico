@@ -6,7 +6,7 @@ test:
 	make chown-user
 
 chown-user:
-	sudo chown $(USER):$(USER) . -R
+	sudo chown $(USER) . -R
 
 comando:
 	docker exec -e http_proxy=$(http_proxy) -e https_proxy=$(http_proxy) saude_app_1 $(comando);

@@ -17,7 +17,7 @@ up-prod:
 	make chown-user
 
 up:
-	docker-compose up --rm -d
+	docker-compose up --force-recreate -d
 	make chown-user
 
 down:

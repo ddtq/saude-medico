@@ -45,9 +45,9 @@ cp_env:
 db_rh:
 	docker exec -it saude_db_rh_1 bash -c "/bin/sh /docker-entrypoint-initdb.d/db_rh.sh"
 
-install-dev: cp_env build-images up composer migration db_rh chown-user
+install-dev: down cp_env build-images up composer migration db_rh chown-user
 
-install-prod: cp_env build-images up-prod composer migration chown-user
+install-prod: down cp_env build-images up-prod composer migration chown-user
 
 build-images:
 	pwd=$(`pwd`) && cd .docker/dev/app && docker image build --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) -t ddtq/saude_app:0.2 . && cd $(pwd)

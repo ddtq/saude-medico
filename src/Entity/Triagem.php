@@ -47,7 +47,7 @@ class Triagem
     private $sintomas;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $telefoneCelular;
 
